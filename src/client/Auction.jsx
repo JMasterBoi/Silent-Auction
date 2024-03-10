@@ -5,6 +5,7 @@ import { mySwal, toastMessage } from "./main"
 
 export function Auction() {
     const [items, setItems] = useState([])
+    console.log(items)
     useEffect(() => {
         if (new URLSearchParams(window.location.search).get("login-success")){
             toastMessage.fire({

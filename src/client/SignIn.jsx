@@ -62,7 +62,15 @@ export function SignIn() {
 
             <label htmlFor="password">Password</label>
             <input type={visibility ? "text" : "password"} name="password" id="password" value={password} onChange={e => {setPassword(e.target.value)}} />
-            <img onClick={() => {setVisibility((prev) => {return !prev})}} style={{float: "right"}} src={`./src/client/static/MaterialSymbolsVisibility${ visibility ? "Off" : "" }Outline.svg`} alt="set-visibility" />
+
+            <br />
+            <div className="flex-row">
+                <label htmlFor="visibility" >Show Password</label>
+                <input type="checkbox" name="visibility" id="visibility" value={visibility} onChange={(e) => {setVisibility((prev) => { return !prev })}} />
+            </div>
+            <br />
+
+            {/* <img onClick={() => {setVisibility((prev) => {return !prev})}} style={{float: "right"}} src={`./src/client/static/MaterialSymbolsVisibility${ visibility ? "Off" : "" }Outline.svg`} alt="set-visibility" /> */}
             <label htmlFor="repeat-password">Repeat Password</label>
             <input type={visibility ? "text" : "password"} name="repeat-password" id="repeat-password" value={repeatPassword} onChange={e => {setRepeatPassword(e.target.value)}} />
 

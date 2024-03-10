@@ -1,8 +1,9 @@
-import { DB_URL } from "../secrets/config.js";
+// import { DB_URL } from "../secrets/config.js";
 import express from "express";
 import ViteExpress from "vite-express"
 // ---------------------
 import axios from "axios";
+import path from "path"
 import bcrypt from "bcrypt";
 import { Int32, MongoClient, ObjectId, ServerApiVersion } from "mongodb"
 
@@ -14,7 +15,7 @@ console.log("Server is active on http://localhost:3000/")
 );
 
 //# MONGO DB SETUP
-const mongo = new MongoClient(DB_URL, {
+const mongo = new MongoClient("mongodb+srv://Juanito:3gaDE9iMO3BIeGVh@cluster0.2duv9fo.mongodb.net/?retryWrites=true&w=majority", {
     serverApi: {
         version: ServerApiVersion.v1,
         strict: true,
