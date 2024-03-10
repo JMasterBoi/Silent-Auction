@@ -10,6 +10,12 @@ import { Int32, MongoClient, ObjectId, ServerApiVersion } from "mongodb"
 //# EXPRESS + VITE SETUP
 const app = express();
 app.use(express.json())
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+});
+
 ViteExpress.listen(app, 3000, () =>
 console.log("Server is active on http://localhost:3000/")
 );

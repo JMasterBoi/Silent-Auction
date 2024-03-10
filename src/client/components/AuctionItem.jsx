@@ -18,7 +18,7 @@ export function AuctionItem({ _id, itemName, itemDescription, bids }) {
             })
         } else {
             console.log("res")
-            axios.post("/api/bid", {itemId: _id, userId: localStorage.getItem("USER"), amount: Number(bidAmount)}).then((res) => {
+            axios.post("http://18.189.192.80:3000/api/bid", {itemId: _id, userId: localStorage.getItem("USER"), amount: Number(bidAmount)}).then((res) => {
                 console.log(res)
             })
         }

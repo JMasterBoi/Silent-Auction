@@ -24,7 +24,7 @@ export function CreateItem() {
             return
         }
 
-        axios.post("/api/create-item", {
+        axios.post("http://18.189.192.80:3000/api/create-item", {
             itemName: itemName,
             itemDescription: itemDescription,
             startingBid: startingBid

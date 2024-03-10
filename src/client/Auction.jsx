@@ -14,7 +14,7 @@ export function Auction() {
             })
         }
 
-        axios.post("/api/get-items").then((res) => {
+        axios.post("http://18.189.192.80:3000/api/get-items").then((res) => {
             setItems(res.data)
         })
     }, [])

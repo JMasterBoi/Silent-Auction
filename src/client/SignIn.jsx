@@ -39,7 +39,7 @@ export function SignIn() {
             return
         }
 
-         axios.post("/api/sign-in", {
+         axios.post("http://18.189.192.80:3000/api/sign-in", {
             email: email,
             name: username,
             password: password
