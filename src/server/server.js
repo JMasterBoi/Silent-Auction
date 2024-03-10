@@ -35,13 +35,17 @@ const db = mongo.db("SIlent_Auction");
 const usersDB = db.collection("users")
 const itemsDB = db.collection("items")
 
+
 app.post("/api/sign-in", async (req, res) => {
+    const _id = req.body._id
     const email = req.body.email
     const name = req.body.name
 
     // create and store password hash
     bcrypt.hash(req.body.password, 10).then((hashResponse) => {
-        usersDB.insertOne({email: email, name: name, hash: hashResponse}).then((dbResponse) => {
+        usersDB.insertOne({_id: _id, email: email, name: name, hash: hashResponse}).then((dbResponse) => {
+            console.log(dbResponse.insertedId)
+            console.log(dbResponse.insertedId.toString())
             res.send(dbResponse.insertedId.toString())
         })
     });
@@ -50,11 +54,13 @@ app.post("/api/sign-in", async (req, res) => {
 app.post("/api/create-item", (req, res) => {
     const itemName = req.body.itemName;
     const itemDescription = req.body.itemDescription;
+    const itemWorth = req.body.itemWorth;
     const startingBid = req.body.startingBid;
 
     itemsDB.insertOne({
         itemName: itemName,
         itemDescription: itemDescription,
+        itemWorth: itemWorth,
         bids: [{
             user: 0,
             amount: new Int32(startingBid),
@@ -77,6 +83,8 @@ app.post("/api/bid", (req, res) => {
     const userId = req.body.userId
     const amount = req.body.amount
 
+    console.log("TEST")
+
     const newBid = {
         user: userId,
         amount: new Int32(amount),
@@ -88,6 +96,19 @@ app.post("/api/bid", (req, res) => {
     })
 });
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/index.html'));
-});
+app.post("/api/remove-bid", (req, res) => {
+    const itemId = req.body.itemId
+    const amount = req.body.amount
+    const userId = req.body.userId
+
+    itemsDB.updateOne({_id: new ObjectId(itemId)}, {$pull: {
+        bids: {
+            user: userId,
+            amount: amount
+        }
+    }}).then((response) => {
+        console.log(response)
+    }).catch(err => {
+        console.log(err)
+    })
+})

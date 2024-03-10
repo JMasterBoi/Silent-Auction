@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { toastMessage } from "./main"
 import axios from 'axios';
+import { v4 as uuid } from "uuid";
 
 export function SignIn() {
     const [email, setEmail] = useState("")
@@ -38,13 +39,17 @@ export function SignIn() {
             })
             return
         }
+        
+        
+        const uuid = Math.floor(Math.random() * 10000000).toString();
 
-         axios.post("http://18.189.192.80:3000/api/sign-in", {
+        axios.post("/api/sign-in", {
+            _id: uuid,
             email: email,
             name: username,
             password: password
         }).then((res) => {
-            localStorage.setItem("USER", res.data)
+            localStorage.setItem("USER", uuid.toString())
             window.location.href = "/auction?login-success=true";
         })
     }
@@ -70,7 +75,6 @@ export function SignIn() {
             </div>
             <br />
 
-            {/* <img onClick={() => {setVisibility((prev) => {return !prev})}} style={{float: "right"}} src={`./src/client/static/MaterialSymbolsVisibility${ visibility ? "Off" : "" }Outline.svg`} alt="set-visibility" /> */}
             <label htmlFor="repeat-password">Repeat Password</label>
             <input type={visibility ? "text" : "password"} name="repeat-password" id="repeat-password" value={repeatPassword} onChange={e => {setRepeatPassword(e.target.value)}} />
 
