@@ -81,3 +81,7 @@ app.post("/api/bid", (req, res) => {
         console.log(res)
     })
 });
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist/index.html'));
+});
